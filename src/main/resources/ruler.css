@@ -1,0 +1,15 @@
+.slider.axis-top > .axis  {
+    -fx-side: TOP;
+}
+
+.slider.axis-left > .axis {
+    -fx-side: LEFT;
+}
+
+.slider.axis-right > .axis {
+    -fx-side: RIGHT;
+}
+
+.slider.axis-bottom > .axis {
+    -fx-side: BOTTOM;
+}
