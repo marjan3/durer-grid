@@ -16,7 +16,7 @@ public class DefaultValues {
 
     // Other
     public static final Color WINDOW_COLOR = Color.TRANSPARENT;
-    public static final int INCREMENT = 200;
+    public static final int INCREMENT = 50;
     public static final int MIN_INCREMENT = 5;
     public static final double BUTTONS_SPACING = 7.0;
     public static final int MIN_WIDTH = 300;

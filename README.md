@@ -1,7 +1,7 @@
 # Dürer grid
 > **Dürer grid** is a transparent grid that is placed between the object and the artist. Helps with training the eye to see proportions and angles.
 
-![Image](header.png)
+![Image](screenshot1.png)
 
 ## Getting started 
 To get a local copy up and running follow these simple example steps.
@@ -38,7 +38,7 @@ This section will describe requirements needed to satisfy the installation or ru
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.  
 
 ## Download
- - The application is now available as a JAR file. Within the `dist/` directory of this repository the executable JAR file can be found.
+ - The application is now available as a JAR file and Windows executable. Within the `dist/` directory of this repository the executable JAR and Windows exe file (in a zip format) can be found.
  
 ## Contact
 

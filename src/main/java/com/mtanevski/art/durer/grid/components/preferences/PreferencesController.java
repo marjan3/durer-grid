@@ -1,5 +1,6 @@
 package com.mtanevski.art.durer.grid.components.preferences;
 
+import com.mtanevski.art.durer.grid.repos.PreferencesRepository;
 import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -51,6 +52,15 @@ public class PreferencesController {
         gridLinesWidth.setMax(MAX_LINES_WIDTH);
         centerLinesWidth.setMin(MIN_LINES_WIDTH);
         centerLinesWidth.setMax(MAX_LINES_WIDTH);
+
+        this.width.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setWidth(newValue));
+        this.height.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setHeight(newValue));
+        this.frameColor.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setFrameColor(newValue));
+        this.gridLinesColor.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setGridLinesColor(newValue));
+        this.centerLinesColor.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setCenterLinesColor(newValue));
+        this.centerLinesWidth.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setCenterLinesWidth(newValue.doubleValue()));
+        this.gridLinesWidth.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setGridLinesWidth(newValue.doubleValue()));
+        this.frameLength.valueProperty().addListener((observable, oldValue, newValue) -> PreferencesRepository.setFrameLength(newValue.intValue()));
     }
 
     public void setOnPreferences(Runnable runnable) {

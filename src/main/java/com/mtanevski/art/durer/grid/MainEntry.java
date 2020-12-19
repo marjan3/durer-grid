@@ -5,6 +5,7 @@ import com.mtanevski.art.durer.grid.components.frame.MainButtons;
 import com.mtanevski.art.durer.grid.components.frame.Ruler;
 import com.mtanevski.art.durer.grid.components.grid.Grid;
 import com.mtanevski.art.durer.grid.components.preferences.PreferencesController;
+import com.mtanevski.art.durer.grid.repos.PreferencesRepository;
 import com.mtanevski.art.durer.grid.utils.FxUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -141,15 +142,15 @@ public class MainEntry extends Application {
                 frame1, frame2, frame3, frame4, frame5), primaryStage);
 
         preferencesController.setOnPreferences(() -> {
-            frameLength.setValue(DefaultValues.FRAME_LENGTH);
-            width.setValue(DefaultValues.WIDTH);
-            height.setValue(DefaultValues.HEIGHT);
+            frameLength.setValue(PreferencesRepository.getFrameLength());
+            width.setValue(PreferencesRepository.getWidth());
+            height.setValue(PreferencesRepository.getHeight());
             grid.increment().setValue(DefaultValues.INCREMENT);
-            frameColor.setValue(DefaultValues.FRAME_COLOR);
-            grid.gridLinesColor().setValue(DefaultValues.GRID_LINES_COLOR);
-            grid.centerLinesColor().setValue(DefaultValues.CENTER_LINES_COLOR);
-            grid.gridLinesWidth().setValue(DefaultValues.GRID_LINES_WIDTH);
-            grid.centerLinesWidth().setValue(DefaultValues.CENTER_LINES_WIDTH);
+            frameColor.setValue(PreferencesRepository.getFrameColor());
+            grid.gridLinesColor().setValue(PreferencesRepository.getGridLinesColor());
+            grid.centerLinesColor().setValue(PreferencesRepository.getCenterLinesColor());
+            grid.gridLinesWidth().setValue(PreferencesRepository.getGridLinesWidth());
+            grid.centerLinesWidth().setValue(PreferencesRepository.getCenterLinesWidth());
             windowColor.setValue(DefaultValues.WINDOW_COLOR);
         });
 
