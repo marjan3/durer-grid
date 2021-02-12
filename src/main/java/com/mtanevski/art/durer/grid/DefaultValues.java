@@ -19,7 +19,7 @@ public class DefaultValues {
     public static final int INCREMENT = 50;
     public static final int MIN_INCREMENT = 5;
     public static final double BUTTONS_SPACING = 7.0;
-    public static final int MIN_WIDTH = 300;
+    public static final int MIN_WIDTH = 100;
     public static final int MAX_WIDTH = 3840;
     public static final int MIN_HEIGHT = 100;
     public static final int MAX_HEIGHT = 2160;

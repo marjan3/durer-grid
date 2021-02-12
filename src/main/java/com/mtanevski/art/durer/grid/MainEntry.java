@@ -7,10 +7,13 @@ import com.mtanevski.art.durer.grid.components.grid.Grid;
 import com.mtanevski.art.durer.grid.components.preferences.PreferencesController;
 import com.mtanevski.art.durer.grid.repos.PreferencesRepository;
 import com.mtanevski.art.durer.grid.utils.FxUtil;
+import com.mtanevski.art.durer.grid.utils.ResizeHelper;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -48,6 +51,16 @@ public class MainEntry extends Application {
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.setWidth(DefaultValues.WIDTH + DefaultValues.FRAME_LENGTH * 2);
+        primaryStage.setHeight(DefaultValues.HEIGHT + DefaultValues.FRAME_LENGTH * 2);
+        primaryStage.setMinWidth(DefaultValues.MIN_WIDTH + DefaultValues.FRAME_LENGTH * 2);
+        primaryStage.setMinHeight(DefaultValues.MIN_HEIGHT + DefaultValues.FRAME_LENGTH * 2);
+        primaryStage.setMaxWidth(DefaultValues.MAX_WIDTH + DefaultValues.FRAME_LENGTH * 2);
+        primaryStage.setMaxHeight(DefaultValues.MAX_HEIGHT + DefaultValues.FRAME_LENGTH * 2);
+        ResizeHelper.addResizeListener(primaryStage, DefaultValues.MIN_WIDTH + DefaultValues.FRAME_LENGTH * 2,
+                DefaultValues.MIN_HEIGHT + DefaultValues.FRAME_LENGTH * 2,
+                DefaultValues.MAX_WIDTH,
+                DefaultValues.MAX_HEIGHT);
 
         // canvas
         Grid grid = new Grid();
@@ -101,15 +114,15 @@ public class MainEntry extends Application {
         });
         width.addListener((observable, oldValue, newValue) -> {
             final double length = root.getFrameLength();
-            primaryStage.setWidth(newValue + (length * 2));
-            grid.changeWidth(newValue);
-            horizontalSlider.setMax(newValue);
+                primaryStage.setWidth(newValue + (length * 2));
+                grid.changeWidth(newValue);
+                horizontalSlider.setMax(newValue);
         });
         height.addListener((observable, oldValue, newValue) -> {
             final double length = root.getFrameLength();
-            primaryStage.setHeight(newValue + (length * 2));
-            grid.changeHeight(newValue);
-            verticalRuler.setMax(newValue);
+                primaryStage.setHeight(newValue + (length * 2));
+                grid.changeHeight(newValue);
+                verticalRuler.setMax(newValue);
         });
         frameColor.addListener((observable, oldValue, newValue) -> {
             Arrays.asList(
@@ -134,12 +147,20 @@ public class MainEntry extends Application {
             scene.setFill(newValue);
             root.setStyle(bgColor(newValue));
         });
+        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
+            final double length = root.getFrameLength();
+            grid.changeWidth(newValue.intValue() - (length * 2));
+            horizontalSlider.setMax(newValue.intValue() - (length * 2));
+        });
+        primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
+            final double length = root.getFrameLength();
+            grid.changeHeight(newValue.intValue() - (length * 2));
+            verticalRuler.setMax(newValue.intValue() - (length * 2));
+        });
 
         setupWindowDragging(Arrays.asList(
                 grid.getInteractive(),
-                mainButtons,
-                hAnchorPane, vAnchorPane,
-                frame1, frame2, frame3, frame4, frame5), primaryStage);
+                mainButtons),primaryStage);
 
         preferencesController.setOnPreferences(() -> {
             frameLength.setValue(PreferencesRepository.getFrameLength());
