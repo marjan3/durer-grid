@@ -28,7 +28,7 @@ This section will describe requirements needed to satisfy the installation or ru
  
 ### Deploy
  - `cd gui`
- - `mvn jfx:jar`
+ - `mvn clean compile javafx:jlink jpackage:jpackage`
  - `mv gui/target/jfx/app/durer-grid-${version}-jfx.jar gui/target/jfx/app/durer-grid-${version}.jar`
  - `zip gui/target/jfx/app/. durer-grid-${version}`
  - `rm -rf dist/*`
