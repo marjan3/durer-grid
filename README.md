@@ -22,17 +22,15 @@ This section will describe requirements needed to satisfy the installation or ru
  
 ### Run
  - Right click and run `MainEntry.java`
+ - `target/image/bin/launcher`
  
 ### Test
  - Run `mvn test`
  
 ### Deploy
  - `cd gui`
- - `mvn clean compile javafx:jlink jpackage:jpackage`
- - `mv gui/target/jfx/app/durer-grid-${version}-jfx.jar gui/target/jfx/app/durer-grid-${version}.jar`
- - `zip gui/target/jfx/app/. durer-grid-${version}`
- - `rm -rf dist/*`
- - `mv durer-grid-${version}.zip ../dist/`
+ - `mvn clean compile javafx:jlink`
+ - `mv target/durer-grid.zip dist/`
 
 ## Usage guide
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.  
