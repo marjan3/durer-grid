@@ -12,11 +12,12 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <compiler.source>17</compiler.source>
+        <compiler.target>17</compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <outpur.dir>dist</outpur.dir>
         <main.class>com.mtanevski.art.durer.grid.MainEntry</main.class>
+        <javafx.version>17.0.0.1</javafx.version>
     </properties>
 
     <build>
@@ -29,18 +30,35 @@
             </resource>
         </resources>
         <plugins>
+<!--            <plugin>-->
+<!--                <groupId>com.zenjava</groupId>-->
+<!--                <artifactId>javafx-maven-plugin</artifactId>-->
+<!--                <version>8.8.3</version>-->
+<!--                <configuration>-->
+<!--                    <vendor>Marjan Tanevski</vendor>-->
+<!--                    <mainClass>${main.class}</mainClass>-->
+<!--                    <jfxAppOutputDir>${output.dir}</jfxAppOutputDir>-->
+<!--                    <useEnvironmentRelativeExecutables>true</useEnvironmentRelativeExecutables>-->
+<!--                    <nativeOutputDir>${output.dir}</nativeOutputDir>-->
+<!--                    <appName>Durer Grid</appName>-->
+<!--                    <allPermissions>true</allPermissions>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.8.3</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
-                    <vendor>Marjan Tanevski</vendor>
-                    <mainClass>${main.class}</mainClass>
-                    <jfxAppOutputDir>${output.dir}</jfxAppOutputDir>
-                    <useEnvironmentRelativeExecutables>true</useEnvironmentRelativeExecutables>
-                    <nativeOutputDir>${output.dir}</nativeOutputDir>
-                    <appName>Durer Grid</appName>
-                    <allPermissions>true</allPermissions>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.mtanevski.art.durer.grid.MainEntry</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -48,7 +66,21 @@
 
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
