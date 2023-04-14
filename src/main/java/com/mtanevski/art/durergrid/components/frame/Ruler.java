@@ -14,7 +14,7 @@ public class Ruler extends Slider {
         this.setBlockIncrement(50.0);
         this.setMinorTickCount(10);
         this.setMajorTickUnit(50.0);
-        this.setSnapToTicks(true);
+        this.setSnapToTicks(false);
     }
 
     public static Ruler horizontalRuler() {

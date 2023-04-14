@@ -32,7 +32,6 @@ public class PreferencesController {
     @FXML
     public CheckBox showRulers;
 
-//    private Runnable onSetPreferences;
     private Runnable onResetPreferences;
 
     @FXML
@@ -59,10 +58,6 @@ public class PreferencesController {
     public void onResetPreferences(Runnable runnable) {
         this.onResetPreferences = runnable;
     }
-//    public void onSetPreferences(Runnable runnable) {
-//        this.onSetPreferences = runnable;
-//    }
-
 
     public void bind(Property<Boolean> showRules,
                      Property<Integer> width,

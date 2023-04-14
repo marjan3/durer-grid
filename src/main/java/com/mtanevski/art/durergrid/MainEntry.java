@@ -13,18 +13,24 @@ import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.util.Arrays;
 
+import static com.mtanevski.art.durergrid.DefaultValues.MAX_HEIGHT;
+import static com.mtanevski.art.durergrid.DefaultValues.MAX_WIDTH;
 import static com.mtanevski.art.durergrid.utils.FxUtil.wrapInAnchorPane;
 
 public class MainEntry extends Application {
 
-    public static final String TITLE = "Dürer Grid";
     public static final String PREFERENCES_FXML = "preferences.fxml";
     private static final Property<Color> frameColor = new SimpleObjectProperty<>();
     private static final Property<Integer> width = new SimpleObjectProperty<>();
@@ -41,43 +47,45 @@ public class MainEntry extends Application {
         /*
          *  SETUP SCENE
          */
-        RootContainer root = new RootContainer();
+        var root = new RootContainer();
 
         final Scene scene = new Scene(root);
-        primaryStage.setTitle(TITLE);
+        primaryStage.setTitle(DefaultValues.TITLE);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Resizer.addResizeListener(primaryStage, width, height);
         // canvas
-        Grid grid = new Grid();
+        var grid = new Grid();
         root.add(FxUtil.wrapInAnchorPane(grid, 1.0), 1, 1, 1, 1);
         // buttons
-        MainButtons mainButtons = new MainButtons();
+        root.setGridLinesVisible(true);
+        var mainButtons = new MainButtons();
         root.add(mainButtons, 2, 0, 1, 1);
+
         // frames
-        final AnchorPane frame1 = new AnchorPane();
+        var frame1 = new AnchorPane();
         root.add(frame1, 0, 0, 1, 1);
-        final AnchorPane frame2 = new AnchorPane();
+        var frame2 = new AnchorPane();
         root.add(frame2, 0, 2, 1, 1);
-        final AnchorPane frame3 = new AnchorPane();
+        var frame3 = new AnchorPane();
         root.add(frame3, 1, 2, 1, 1);
-        final AnchorPane frame4 = new AnchorPane();
+        var frame4 = new AnchorPane();
         root.add(frame4, 2, 2, 1, 1);
-        final AnchorPane frame5 = new AnchorPane();
+        var frame5 = new AnchorPane();
         root.add(frame5, 2, 1, 1, 1);
         // horizontal ruler
-        Ruler horizontalSlider = Ruler.horizontalRuler();
-        AnchorPane hAnchorPane = FxUtil.wrapInAnchorPane(horizontalSlider, null, 0.0, -5.0, -5.0);
+        var horizontalSlider = Ruler.horizontalRuler();
+        var hAnchorPane = FxUtil.wrapInAnchorPane(horizontalSlider, null, 0.0, -5.0, -5.0);
         root.add(hAnchorPane, 1, 0, 1, 1);
         // vertical ruler
-        Ruler verticalRuler = Ruler.verticalRuler();
-        AnchorPane vAnchorPane = FxUtil.wrapInAnchorPane(verticalRuler, -5.0, -5.0, null, 0.0);
+        var verticalRuler = Ruler.verticalRuler();
+        var vAnchorPane = FxUtil.wrapInAnchorPane(verticalRuler, -5.0, -5.0, null, 0.0);
         root.add(vAnchorPane, 0, 1, 1, 1);
 
         /*
          * SETUP BINDINGS
          */
-        final PreferencesController preferencesController = new PreferencesController();
+        var preferencesController = new PreferencesController();
 
         horizontalSlider.visibleProperty().bindBidirectional(verticalRuler.visibleProperty());
 
@@ -98,14 +106,27 @@ public class MainEntry extends Application {
                     grid.centerLinesWidth(),
                     frameLength);
         });
+        mainButtons.setOnLoadImage(e -> {
+            var fileChooser = new FileChooser();
+            var file = fileChooser.showOpenDialog(scene.getWindow());
+            if (file != null) {
+                var image = new Image(file.toURI().toString());
+                width.setValue(Integer.min((int)image.getWidth(), MAX_WIDTH));
+                height.setValue(Integer.min((int)image.getHeight(), MAX_HEIGHT));
+                var backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+                var backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+                grid.setBackground(new Background(backgroundImage));
+            }
+        });
+        mainButtons.setOnClearImage(e -> grid.setBackground(null));
         width.addListener((o, oldValue, newValue) -> {
-            final double length = root.getFrameLength();
+            var length = root.getFrameLength();
             primaryStage.setWidth(newValue + (length * 2));
             grid.changeWidth(newValue);
             horizontalSlider.setMax(newValue);
         });
         height.addListener((o, oldValue, newValue) -> {
-            final double length = root.getFrameLength();
+            var length = root.getFrameLength();
             primaryStage.setHeight(newValue + (length * 2));
             grid.changeHeight(newValue);
             verticalRuler.setMax(newValue);
